@@ -135,9 +135,9 @@ class PatchEmbedding(nn.Module):
         b, _, _, _ = x.shape
         x = self.projection(x)
         cls_tokens = repeat(self.cls_token, '() n e -> b n e', b=b)
-        dist_tokens = repeat(self.cls_token, '() n e -> b n e', b=b)
+        dist_tokens = repeat(self.dist_tokens, '() n e -> b n e', b=b)
         # prepend the cls token to the input
-        x = torch.cat([cls_tokens, x], dim=1)
+        x = torch.cat([cls_tokens, dist_tokens, x], dim=1)
         # add position embedding
         x += self.positions
         return x
